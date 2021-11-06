@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  - var results = [{tea_type:"hot",flavour:"ginger",tea_price:2},{tea_type:"hot",flavour:"masala",tea_price:2.15},{tea_type:"iced",flavour:"lemon",tea_price:1.50}];
+    div(class="container-fluid") 
+     div(class="row")
+      each i,j in results 
+       div(class="col-sm-4" onclick=`buy(${j})`) tea-type:#{i.tea_type}
+       br 
+       br
+       div(class="col-sm-4" onclick=`buy(${j})`) flavour:#{i.flavour}
+       br
+       br
+       div(class="col-sm-4" onclick=`buy(${j})`) tea_price:#{i.tea_price}
+  script.
+   function buy(itemNo){
+     alert("You purchased item "+(itemNo+1))
+   }
