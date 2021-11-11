@@ -1,10 +1,17 @@
 var tea = require('../models/tea'); 
  
-// List of all teas 
-exports.tea_list = function(req, res) { 
-    res.send('NOT IMPLEMENTED: tea list'); 
+/// List of all teas 
+exports.tea_list = async function(req, res) { 
+    try{ 
+        theteas = await tea.find(); 
+        res.send(theteas); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
 }; 
- 
+
 // for a specific tea. 
 exports.tea_detail = function(req, res) { 
     res.send('NOT IMPLEMENTED: tea detail: ' + req.params.id); 
