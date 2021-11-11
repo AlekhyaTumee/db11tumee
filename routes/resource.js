@@ -13,19 +13,19 @@ router.get('/', api_controller.api);
 /// tea ROUTES /// 
  
 // POST request for creating a tea.  
-router.post('/teas', tea_controller.tea_create_post); 
+router.post('/tea', tea_controller.tea_create_post); 
  
 // DELETE request to delete tea. 
-router.delete('/teas/:id', tea_controller.tea_delete); 
+router.delete('/tea/:id', tea_controller.tea_delete); 
  
 // PUT request to update tea. 
-router.put('/teas/:id', 
+router.put('/tea/:id', 
 tea_controller.tea_update_put); 
  
 // GET request for one tea. 
-router.get('/teas/:id', tea_controller.tea_detail); 
+router.get('/tea/:id', tea_controller.tea_detail); 
  
 // GET request for list of all tea items. 
-router.get('/teas', tea_controller.tea_list); 
+router.get('/tea', tea_controller.tea_list); 
  
 module.exports = router; 
