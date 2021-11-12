@@ -13,8 +13,15 @@ exports.tea_list = async function(req, res) {
 }; 
 
 // for a specific tea. 
-exports.tea_detail = function(req, res) { 
-    res.send('NOT IMPLEMENTED: tea detail: ' + req.params.id); 
+exports.tea_detail = async function(req, res) { 
+    console.log("detail"  + req.params.id) 
+    try { 
+        result = await tea.findById( req.params.id) 
+        res.send(result) 
+    } catch (error) { 
+        res.status(500) 
+        res.send(`{"error": document for id ${req.params.id} not found`); 
+    } 
 }; 
  
 // Handle tea create on POST. 
@@ -44,9 +51,24 @@ exports.tea_delete = function(req, res) {
 }; 
  
 // Handle tea update form on PUT. 
-exports.tea_update_put = function(req, res) { 
-    res.send('NOT IMPLEMENTED: tea update PUT' + req.params.id); 
-}; 
+exports.tea_update_put = async function(req, res) { 
+    console.log(`update on id ${req.params.id} with body 
+${JSON.stringify(req.body)}`) 
+    try { 
+        let toUpdate = await tea.findById( req.params.id) 
+        // Do updates of properties 
+        if(req.body.tea_type)  
+               toUpdate.tea_type = req.body.tea_type; 
+        if(req.body.flavour) toUpdate.flavour = req.body.flavour; 
+        if(req.body.tea_price) toUpdate.tea_price = req.body.tea_price;  
+        let result = await toUpdate.save(); 
+        console.log("Sucess " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": ${err}: Update for id ${req.params.id} failed`); 
+    } 
+};  
 
 // VIEWS 
 // Handle a show all view 
