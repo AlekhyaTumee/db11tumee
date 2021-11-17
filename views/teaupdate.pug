@@ -1,43 +1,44 @@
 extends layout 
  
 block content 
-  h1= title 
- 
-  - let teaid = toShow._id 
-  - let tea_type = toShow.tea_type 
-  - let flavour = toShow.flavour 
-  - let tea_price = toShow.tea_price 
-   
-  div.row(class='mb-2') 
-    div.mr-1 ID is 
-    div #{teaid} 
-  - let actionid = "/resource/tea/" + teaid 
-  form(id='teaForm', action= actionid, method="PUT") 
-    div.form-group 
-        label.teaAttr(for='tea_type') tea type 
-        input#tea_type(type='text', name='tea_type', value= tea_type ) 
-    div.form-group 
-        label.teaAttr(for='flavour') tea flavour 
-        input#flavour(type='text', name='flavour', value= flavour ) 
-    div.form-group 
-        label.teaAttr(for='tea_price') tea price 
-        input#tea_price(type='number', name='tea_price', value= tea_price ) 
-    input(type="submit") 
- 
-  script. 
-    document.forms['teaForm'].addEventListener('submit', (event) => { 
-      event.preventDefault(); 
-      // TODO do something here to show user that form is being submitted 
-      fetch(event.target.action, { 
-        method: 'PUT', 
-        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
-      }).then((resp) => { 
-        return resp.text(); // or resp.text() or whatever the server sends 
-      }).then((body) => { 
-        alert("Update succeded") 
-        // TODO handle body 
-      }).catch((error) => { 
-        // TODO handle error 
-        alert("Update failed " + error ) 
-      }); 
-    }); 
+  h1(class="text-center")= title 
+  if (toShow == null) 
+    h2 No instance to delete
+  else  
+    - let teaid = toShow._id 
+    - let tea_type = toShow.tea_type 
+    - let flavour = toShow.flavour 
+    - let tea_price = toShow.tea_price 
+    
+    div.row(class='text-center mb-2') 
+        div.mr-1 ID is #{teaid} 
+    - let actionid = "/resource/tea/" + teaid 
+    form(id='teaForm' class="text-center", action= actionid, method="PUT") 
+        div.form-group 
+            label.teaAttr(for='tea_type') tea type 
+            input#tea_type(type='text', name='tea_type', value= tea_type ) 
+        div.form-group 
+            label.teaAttr(for='flavour') tea flavour 
+            input#flavour(type='text', name='flavour', value= flavour ) 
+        div.form-group 
+            label.teaAttr(for='tea_price') tea price 
+            input#tea_price(type='number', name='tea_price', value= tea_price ) 
+        input(type="submit" class="btn btn-warning m-2") 
+    
+    script. 
+        document.forms['teaForm'].addEventListener('submit', (event) => { 
+        event.preventDefault(); 
+        // TODO do something here to show user that form is being submitted 
+        fetch(event.target.action, { 
+            method: 'PUT', 
+            body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+        }).then((resp) => { 
+            return resp.text(); // or resp.text() or whatever the server sends 
+        }).then((body) => { 
+            alert("Update succeded") 
+            // TODO handle body 
+        }).catch((error) => { 
+            // TODO handle error 
+            alert("Update failed " + error ) 
+        }); 
+        }); 
