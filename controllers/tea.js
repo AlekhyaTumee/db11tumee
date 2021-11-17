@@ -46,8 +46,16 @@ exports.tea_create_post = async function(req, res) {
 }; 
  
 // Handle tea delete form on DELETE. 
-exports.tea_delete = function(req, res) { 
-    res.send('NOT IMPLEMENTED: tea delete DELETE ' + req.params.id); 
+exports.tea_delete =  async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await tea.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
 }; 
  
 // Handle tea update form on PUT. 
@@ -82,3 +90,17 @@ exports.tea_view_all_Page = async function(req, res) {
         res.send(`{"error": ${err}}`); 
     }   
 }; 
+
+ // Handle a show one view with id specified by query 
+ exports.tea_view_one_Page = async function(req, res) { 
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await tea.findById( req.query.id) 
+        res.render('teadetail',  
+{ title: 'tea Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+};
