@@ -4,16 +4,16 @@ block content
   h1= title
   - let items = results
     div(class="container-fluid") 
-     div(class="row")
-      each i,j in results 
-       div(class="col-sm-4" onclick=`buy(${j})`) tea-type:#{i.tea_type}
-       br 
-       br
-       div(class="col-sm-4" onclick=`buy(${j})`) flavour:#{i.flavour}
-       br
-       br
-       div(class="col-sm-4" onclick=`buy(${j})`) tea_price:#{i.tea_price}
+     div(class="row m-1")
+      each item in items
+       - let destination = `dispatch(\"/tea/update?id=${item._id}\")`  
+       div(class="row-sm-2", class="m-1") Item #{item.tea_type}(#{item.flavour}) is #{item.tea_price} 
+        button.btn( class="btn-primary ml-1", onclick= destination) Update 
+
   script.
    function buy(itemNo){
      alert("You purchased item "+(itemNo+1))
    }
+   function dispatch(path){ 
+      window.location.href=path 
+    } 
