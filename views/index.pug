@@ -1,16 +1,12 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title} this is webapps- assignment 11
-  button(type="button", class="btn btn-dark" onclick="update()") press me
-  br
-  br
-  div(id="target") Display
-  script. 
-    let client_count = 0;
-    function update(){
-      client_count = client_count+1;
-      document.getElementById("target").innerHTML = "value now :" +client_count;
-    }
-  a(href='tea') tea
+extends layout 
+ 
+block content 
+  if (!user) 
+    a(href="/login") Login 
+    br 
+    a(href="/register") Register 
+  if (user) 
+    p You are currently logged in as #{user.username} 
+    a(href="/tea") Take me to tea 
+    br 
+    a(href="/logout") Logout 
