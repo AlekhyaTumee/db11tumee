@@ -96,8 +96,7 @@ exports.tea_view_all_Page = async function(req, res) {
     console.log("single view for id "  + req.query.id) 
     try{ 
         result = await tea.findById( req.query.id) 
-        res.render('teadetail',  
-{ title: 'tea Detail', toShow: result }); 
+        res.render('teadetail',  { title: 'tea Detail', toShow: result }); 
     } 
     catch(err){ 
         res.status(500) 
