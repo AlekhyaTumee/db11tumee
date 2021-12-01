@@ -23,7 +23,7 @@ block content
         method: 'POST', 
         body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
       }).then((resp) => { 
-        return resp.text(); // or resp.text() or whatever the server sends 
+        return resp.json(); // or resp.text() or whatever the server sends 
       }).then((body) => { 
         alert("Save succeded") 
         // TODO handle body 
